@@ -31,4 +31,11 @@ public class TopicService {
                 .stream().map(topicEntity -> modelMapper.map(topicEntity, TopicDTO.class)).toList();
         return topicDTOS;
     }
+
+    public TopicDTO getTopic(Long id) {
+        TopicEntity topicEntity = topicRepository.findById(id)
+                .orElseThrow();
+        TopicDTO topicDTO = modelMapper.map(topicEntity, TopicDTO.class);
+        return topicDTO;
+    }
 }

@@ -3,10 +3,7 @@ package com.example.topic_service.controllers;
 import com.example.topic_service.dtos.TopicDTO;
 import com.example.topic_service.services.TopicService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,5 +22,11 @@ public class TopicController {
                                                     @RequestParam(required = false) Long typeId) {
         List<TopicDTO> topicDTOS = topicService.getTopics(name, departmentId, typeId);
         return ResponseEntity.ok(topicDTOS);
+    }
+
+    @GetMapping("/get/{id}")
+    public ResponseEntity<TopicDTO> getTopic(@PathVariable("id") Long id) {
+        TopicDTO topicDTO = topicService.getTopic(id);
+        return ResponseEntity.ok(topicDTO);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.topic_service.controllers;
 
+import com.example.topic_service.dtos.ExistenceResponse;
 import com.example.topic_service.dtos.TopicDTO;
 import com.example.topic_service.services.TopicService;
 import org.springframework.http.ResponseEntity;
@@ -28,5 +29,11 @@ public class TopicController {
     public ResponseEntity<TopicDTO> getTopic(@PathVariable("id") Long id) {
         TopicDTO topicDTO = topicService.getTopic(id);
         return ResponseEntity.ok(topicDTO);
+    }
+
+    @GetMapping("/check-existence/{id}")
+    public ResponseEntity<ExistenceResponse> checkExistence(@PathVariable("id") Long id) {
+        ExistenceResponse existenceResponse = topicService.checkExistence(id);
+        return ResponseEntity.ok(existenceResponse);
     }
 }

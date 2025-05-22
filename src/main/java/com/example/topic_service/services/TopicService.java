@@ -1,7 +1,9 @@
 package com.example.topic_service.services;
 
+import com.example.topic_service.dtos.ExistenceResponse;
 import com.example.topic_service.dtos.TopicDTO;
 import com.example.topic_service.entities.TopicEntity;
+import com.example.topic_service.exceptions.TopicNotFoundException;
 import com.example.topic_service.repositories.TopicRepository;
 import com.example.topic_service.specifications.TopicSpecification;
 import org.modelmapper.ModelMapper;
@@ -37,5 +39,13 @@ public class TopicService {
                 .orElseThrow();
         TopicDTO topicDTO = modelMapper.map(topicEntity, TopicDTO.class);
         return topicDTO;
+    }
+
+    public ExistenceResponse checkExistence(Long id) {
+        if (topicRepository.findById(id).isPresent()) {
+            return new ExistenceResponse(true);
+        } else {
+            throw new TopicNotFoundException("Topic with id " + id + " not found");
+        }
     }
 }
